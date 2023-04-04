@@ -8,8 +8,9 @@ public class DateWeb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(GetUsers());
+       // StartCoroutine(GetUsers());
         StartCoroutine(GetDate());
+        StartCoroutine(loginData("aditya", "1234"));
     }
 
     IEnumerator GetDate()
@@ -46,6 +47,26 @@ public class DateWeb : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 // Or Retrieve result as binary Data.
                 byte[] results = www.downloadHandler.data;
+            }
+        }
+    }
+
+    IEnumerator loginData(string username,string password)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("loginUser", username);
+        form.AddField("loginPass", password);
+
+        using(UnityWebRequest www=UnityWebRequest.Post("http://localhost/Unity%20Backend/login.php", form))
+        {
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log(www.downloadHandler.text);
             }
         }
     }
