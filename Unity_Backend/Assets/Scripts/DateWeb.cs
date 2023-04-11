@@ -71,14 +71,15 @@ public class DateWeb : MonoBehaviour
             }
         }
     }
-    IEnumerator RegisterUser(string id,string username, string password,string level,string coins)
+    public IEnumerator RegisterUser(string username, string password)//string id,string username, string password,string level,string coins)
     {
         WWWForm form = new WWWForm();
-        form.AddField("loginId",  id);
+        
         form.AddField("loginUser", username);
         form.AddField("loginPass", password);
-        form.AddField("loginLevel", level);
-        form.AddField("loginCoins", coins);
+        //form.AddField("loginId", id);
+        //form.AddField("loginLevel", level);
+        //form.AddField("loginCoins", coins);
 
         using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/Unity%20Backend/RegisterUser.php", form))
         {
